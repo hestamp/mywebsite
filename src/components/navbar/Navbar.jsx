@@ -2,6 +2,7 @@
 import Link from 'next/link'
 import React from 'react'
 import styles from './Navbar.module.css'
+
 const staticMenu = [
   { id: 1, title: 'Home', url: '/' },
   { id: 2, title: 'Portfolio', url: '/portfolio' },
@@ -19,7 +20,7 @@ const Navbar = () => {
   return (
     <div className={styles.container}>
       <Link href="/" className={styles.logo}>
-        Tom Hestamp
+        <h3>Tom Hestamp</h3>
       </Link>
       <div className={styles.links}>
         {staticMenu.map((link) => (
