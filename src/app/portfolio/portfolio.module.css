@@ -1,23 +1,46 @@
 .container {
+  margin-top: 1rem;
 }
 
 .mainTitle {
-  font-size: 72px;
+  font-size: 64px;
+  text-align: center;
+}
+
+.layoutBlock {
+  display: flex;
+  flex-direction: column;
 }
 
 .selectTitle {
   margin: 1rem 0;
+  text-align: center;
 }
 
 .items {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto auto auto;
   gap: 50px;
+  justify-content: center;
+  max-width: 100%;
+}
+
+@media only screen and (max-width: 700px) {
+  .items {
+    grid-template-columns: auto;
+  }
+}
+@media only screen and (min-width: 701px) and (max-width: 1200px) {
+  .items {
+    grid-template-columns: auto auto;
+  }
 }
 
 .item {
   border: 3px solid transparent;
   border-radius: 5px;
-  width: 300px;
+  max-width: 300px;
+  min-width: 300px;
   position: relative;
   height: 400px;
 }
@@ -31,10 +54,11 @@
 
 .title {
   position: absolute;
-  right: 10px;
+  left: 10px;
   bottom: 10px;
   font-size: 36px;
   font-weight: bold;
+  color: white;
   z-index: 5;
 }
 .process {

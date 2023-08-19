@@ -2,6 +2,7 @@ import React from 'react'
 import styles from './blog.module.css'
 import Link from 'next/link'
 import Image from 'next/image'
+import { notFound } from 'next/navigation'
 
 const arrayMap = [
   {
@@ -41,10 +42,54 @@ const arrayMap = [
     img: 'https://images.pexels.com/photos/270360/pexels-photo-270360.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
   },
 ]
-const Blog = () => {
+
+const getData = async () => {
+  const res = await fetch('http://localhost:3000/api/posts', {
+    cache: 'no-store',
+  })
+
+  if (!res.ok) {
+    return notFound()
+  }
+
+  return res.json()
+}
+
+export const metadata = {
+  title: 'Blog Page',
+  description: 'Portfolio on Next js',
+}
+
+const Blog = async () => {
+  const data = await getData()
+
   return (
     <div className={styles.container}>
-      {arrayMap.map((item) => (
+      <>
+        {data.map((item) => (
+          <Link
+            key={item._id}
+            className={styles.item}
+            href={`/blog/${item._id}`}
+          >
+            <div className={styles.imgContainer}>
+              <Image
+                src={item.image}
+                width={400}
+                height={250}
+                alt={item.name}
+                className={styles.image}
+              />
+            </div>
+
+            <div className={styles.content}>
+              <h1 className={styles.title}>{item.title}</h1>
+              <p className={styles.desc}>{item.desc}</p>
+            </div>
+          </Link>
+        ))}
+      </>
+      {/* {arrayMap.map((item) => (
         <Link
           key={item.link}
           className={styles.item}
@@ -65,7 +110,7 @@ const Blog = () => {
             <p className={styles.desc}>{item.desc}</p>
           </div>
         </Link>
-      ))}
+      ))} */}
     </div>
   )
 }

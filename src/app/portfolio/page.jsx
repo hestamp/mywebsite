@@ -10,13 +10,13 @@ const arrayMap = [
     img: 'https://images.pexels.com/photos/1029757/pexels-photo-1029757.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
   },
   {
-    name: 'New',
+    name: 'Soon',
     link: '/portfolio/music',
     img: 'https://images.pexels.com/photos/5428826/pexels-photo-5428826.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
     process: true,
   },
   {
-    name: 'New',
+    name: 'Soon',
     link: '/portfolio/movies',
     img: 'https://images.pexels.com/photos/5428826/pexels-photo-5428826.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
     process: true,
@@ -26,12 +26,10 @@ const arrayMap = [
 const Portfolio = () => {
   return (
     <div className={styles.container}>
-      <h2 className={styles.selectTitle}>Choose a gallery</h2>
-
       <div className={styles.items}>
         {arrayMap.map((item) => (
           <Link
-            key={item.name}
+            key={item.link}
             className={styles.item}
             href={`${item.process ? '#' : `${item.link}`}`}
           >

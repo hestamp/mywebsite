@@ -2,19 +2,22 @@
 import Link from 'next/link'
 import React from 'react'
 import styles from './Navbar.module.css'
+import ModeToggle from '../ModeToggle/ModeToggle'
+import { signOut, useSession } from 'next-auth/react'
 
 const staticMenu = [
-  { id: 1, title: 'Home', url: '/' },
-  { id: 2, title: 'Portfolio', url: '/portfolio' },
-  { id: 3, title: 'Blog', url: '/blog' },
+  { id: 1, title: 'Portfolio', url: '/portfolio' },
+  { id: 2, title: 'Blog', url: '/blog' },
+
+  { id: 3, title: 'Contact', url: '/contact' },
   { id: 4, title: 'About', url: '/about' },
-  { id: 5, title: 'Contact', url: '/contact' },
-  { id: 6, title: 'Dashboard', url: '/dashboard' },
 ]
 
 const Navbar = () => {
+  const session = useSession()
+
   const logoutFunc = () => {
-    console.log('logout')
+    signOut()
   }
 
   return (
@@ -23,14 +26,18 @@ const Navbar = () => {
         <h3>Tom Hestamp</h3>
       </Link>
       <div className={styles.links}>
+        <ModeToggle />
         {staticMenu.map((link) => (
           <Link className={styles.link} key={link.id} href={link.url}>
             {link.title}
           </Link>
         ))}
-        <button className={styles.logout} onClick={logoutFunc}>
-          Logout
-        </button>
+
+        {session.status === 'authenticated' && (
+          <button className={styles.logout} onClick={logoutFunc}>
+            Logout
+          </button>
+        )}
       </div>
     </div>
   )
